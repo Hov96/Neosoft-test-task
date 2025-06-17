@@ -45,8 +45,18 @@
             margin-bottom: $margin-8;
         }
 
+        &-empty {
+        }
+
         &-filters {
-            border: 1px solid $color-border;
+            display: flex;
+            flex-direction: column;
+            gap: $padding-8;
+            width: max-content;
+            h2 {
+                font-size: $font-size-lg;
+                margin-bottom: $margin-8;
+            }
         }
     }
 }
