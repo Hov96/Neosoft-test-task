@@ -3,8 +3,7 @@
         "composite": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "@icons/*": ["src/icons/*"],
+            "@/*": ["src/*"]
         }
     },
     "files": [],
