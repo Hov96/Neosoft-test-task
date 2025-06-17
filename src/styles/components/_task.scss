@@ -1,0 +1,22 @@
+.task {
+    border: 1px solid $color-border;
+    border-radius: $radius-16;
+    width: 75%;
+    padding: $padding-4 $padding-12;
+    font-size: $font-size-md;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color-white;
+    cursor: pointer;
+    &:hover {
+        box-shadow: $shadow-sm;
+        background-color: darken($color-white, 5%);;
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        gap: $padding-8;
+    }
+}

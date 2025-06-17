@@ -2,7 +2,10 @@
     <button
         :disabled="disabled"
         class="base-btn"
-        :class="{ 'base-btn__secondary': variant === ButtonVariant.SECONDARY }"
+        :class="{
+            'base-btn__secondary': variant === ButtonVariant.SECONDARY,
+            'base-btn__danger': variant === ButtonVariant.DANGER,
+        }"
         type="button"
     >
         <Loading v-if="loading" />

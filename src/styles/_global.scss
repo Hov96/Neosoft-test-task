@@ -7,13 +7,13 @@ html {
     font-family: 'Inter', sans-serif;
     font-size: $font-size-sm;
     color: $color-text;
-    background-color: $color-bg;
 }
 
 html {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: $color-bg;
 }
 
 ul,
@@ -29,7 +29,6 @@ a {
     }
 }
 
-input,
 button,
 textarea,
 select {

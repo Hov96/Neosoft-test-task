@@ -24,6 +24,7 @@ const store = createStore({
 
         getFilters: (state: TaskStore) => state.filters,
         getSelectedFilter: (state: TaskStore) => state.selectedFilter,
+        getAddBtnloading: (state: TaskStore) => state.addBtnLoading,
     },
     mutations: {
         setTasks: (state: TaskStore, data: Array<Task>) => (state.tasks = data),
@@ -31,9 +32,19 @@ const store = createStore({
         setUncompletedTasks: (state: TaskStore, data: Array<Task>) => (state.tasks = data),
         setTasksLoading: (state: TaskStore, loading: boolean) => (state.loading = loading),
         setTasksError: (state: TaskStore, error: boolean) => (state.loading = error),
+        addTask: (state: TaskStore, task: Task) => state.tasks.push(task),
+        removeTask: (state: TaskStore, taskId: number) => {
+            state.tasks = state.tasks.filter((task) => task.id !== taskId)
+        },
 
         setAddBtnLoading: (state: TaskStore, loading: boolean) => (state.addBtnLoading = loading),
         setFilter: (state: TaskStore, filter: Filters) => (state.selectedFilter = filter),
+        toggleTaskCompleted: (state: TaskStore, data: { taskId: number; completed: boolean }) => {
+            const task = state.tasks.find((task) => task.id === data.taskId)
+            if (task) {
+                task.completed = data.completed
+            }
+        },
     },
     actions: {
         async fetchTasks({ commit, dispatch }) {
@@ -50,9 +61,18 @@ const store = createStore({
             commit('setTasksLoading', false)
         },
 
-        async addTask({ commit, dispatch }) {
+        async addTask({ commit, dispatch }, task: Task) {
             commit('setAddBtnLoading', true)
-            await dispatch('mockApiCall')
+
+            try {
+                await dispatch('mockApiCall')
+                commit('addTask', task)
+            } catch (error) {
+                commit('setTasksError', true)
+            } finally {
+                commit('setAddBtnLoading', false)
+            }
+            commit('setAddBtnLoading', false)
         },
 
         async mockApiCall() {

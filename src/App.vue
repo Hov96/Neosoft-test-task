@@ -13,12 +13,25 @@
             <div class="main__tasks">
                 <div class="main__tasks-list">
                     <div class="main__tasks-add">
-                        <Input v-model="t" placeholder="Task title" />
-                        <Button>Add</Button>
+                        <Input v-model="title" placeholder="Task title" />
+                        <Button
+                            :loading="store.getters.getAddBtnloading"
+                            :disabled="store.getters.getAddBtnloading || !title.trim()"
+                            @click="addTask"
+                        >
+                            Add
+                        </Button>
                     </div>
 
-                    <template v-if="store.state.tasks.length">
-                        <Task v-for="task in tasks" :key="task.id" :title="task.title" class="main__tasks-item" />
+                    <template v-if="tasks.length">
+                        <Task
+                            v-for="task in tasks"
+                            :key="task.id"
+                            :title="task.title"
+                            :completed="task.completed"
+                            @toggleCompleted="(checked) => toggleCompleted(task.id, checked)"
+                            @removeTask="store.commit('removeTask', task.id)"
+                        />
                     </template>
 
                     <div v-else class="main__tasks-empty">
@@ -36,8 +49,8 @@
                         :disabled="selectedFilter === filter"
                         @click="store.commit('setFilter', filter)"
                     >
-                        {{ filter }}</Button
-                    >
+                        {{ filter }}
+                    </Button>
                 </div>
             </div>
         </div>
@@ -50,6 +63,7 @@ import { useStore } from 'vuex'
 import { LoadingSize } from './enums/loading-size.enum'
 import { ButtonVariant } from './enums/button-variant.enum'
 import { Filters } from './enums/filters.enum'
+import type { Task as TaskType } from './interfaces/tasks-store.interface'
 
 // Components
 import Button from './components/base/button.vue'
@@ -61,7 +75,7 @@ const store = useStore()
 
 const loading = computed(() => store.getters.getLoading)
 const filters = computed<Filters[]>(() => store.getters.getFilters)
-const tasks = computed(() => {
+const tasks = computed<TaskType[]>(() => {
     switch (selectedFilter.value) {
         case Filters.ALL:
             return store.getters.getTasks
@@ -75,7 +89,24 @@ const tasks = computed(() => {
 })
 const selectedFilter = computed<Filters>(() => store.getters.getSelectedFilter)
 
-const t = ref('')
+const title = ref('')
+
+const addTask = () => {
+    const value = title.value.trim()
+    if (value) {
+        const task = {
+            id: Date.now(),
+            title: value,
+            completed: false,
+        }
+        store.dispatch('addTask', task)
+        title.value = ''
+    }
+}
+
+const toggleCompleted = (taskId: number, completed: boolean) => {
+    store.commit('toggleTaskCompleted', { taskId, completed })
+}
 
 onMounted(async () => {
     await store.dispatch('fetchTasks')

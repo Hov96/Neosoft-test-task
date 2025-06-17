@@ -37,4 +37,15 @@
             border-color: darken($color-secondary, 10%);
         }
     }
+
+    &__danger {
+        background-color: $color-danger;
+        border-color: $color-danger;
+        color: $color-white;
+
+        &:hover {
+            background-color: $color-danger-600;
+            border-color: $color-danger-600;
+        }
+    }
 }
