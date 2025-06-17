@@ -1,0 +1,25 @@
+.base-btn {
+    border: 1px solid $color-border;
+    border-radius: $radius-8;
+    padding: $padding-8 $padding-16;
+    cursor: pointer;
+    box-shadow: $shadow-sm;
+    background-color: $color-primary;
+    color: $color-white;
+    min-width: 100px;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: $color-primary-600;
+    }
+
+    &:disabled {
+        background-color: $color-text-secondary;
+        cursor: not-allowed;
+        box-shadow: none;
+        color: $color-white;
+    }
+}

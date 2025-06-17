@@ -1,0 +1,28 @@
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-border;
+    border-top: 2px solid #000;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+    background-color: transparent;
+
+    &__sm {
+        width: 16px;
+        height: 16px;
+    }
+    &__md {
+        width: 20px;
+        height: 20px;
+    }
+    &__lg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -6,7 +6,9 @@
             "@/*": ["src/*"]
         },
         "lib": ["ES2024", "ES6", "DOM"],
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "verbatimModuleSyntax": false,
+        "erasableSyntaxOnly": false
     },
     "files": [],
     "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]

@@ -1,0 +1,33 @@
+.base-input {
+    display: flex;
+    flex-direction: column;
+    gap: $margin-8;
+    min-width: 280px;
+    min-height: 35px;
+
+    &__label {
+        font-size: $font-size-sm;
+        color: $color-text-secondary;
+    }
+
+    &__control {
+        padding: $padding-8;
+        color: $color-text;
+        background-color: $color-white;
+        border: 1px solid $color-border;
+        border-radius: $radius-8;
+        box-shadow: $shadow-sm;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+            border-color: $color-primary;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+            outline: none;
+        }
+
+        &::placeholder {
+            color: $color-text-secondary;
+            font-size: $font-size-sm;
+        }
+    }
+}

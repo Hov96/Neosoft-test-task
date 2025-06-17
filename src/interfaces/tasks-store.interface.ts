@@ -1,7 +1,8 @@
 export interface TaskStore {
     tasks: null | Array<Task>
-    loading: false
-    error: false
+    loading: boolean
+    error: boolean
+    addBtnLoading: boolean
 }
 
 export interface Task {
